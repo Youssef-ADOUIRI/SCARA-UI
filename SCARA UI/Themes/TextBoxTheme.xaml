@@ -15,7 +15,6 @@
                                      VerticalAlignment="Center"
                                      Foreground="#CFCFCF"
                                      Margin="1"
-                                     Text="{TemplateBinding Text}"
                                      BorderBrush="Transparent"
                                      BorderThickness="0"
                                      x:Name="InputBox"/>

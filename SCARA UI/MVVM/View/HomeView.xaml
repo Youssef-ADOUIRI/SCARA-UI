@@ -4,9 +4,118 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SCARA_UI.MVVM.View"
+             xmlns:viewModel ="clr-namespace:SCARA_UI.MVVM.ViewModel"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+
+    <UserControl.DataContext>
+        <viewModel:HomeViewModel/>
+    </UserControl.DataContext>
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+
+        <TextBlock Text="WELCOME TO SCARA PROJECT GUI" 
+                       Foreground="#707070" FontSize="36" FontWeight="Bold" TextAlignment="Center"
+                       Margin="0,20,0,150.8"
+                       Grid.Column="0"/>
+
+
+        <Button x:Name="ConnectButton" Width="219"
+                Height="133" Grid.Row="1" 
+                Content="CONNECT"
+                Background="AliceBlue" Margin="151,39.2,430,52.6"
+                Command="{Binding ButtonCommand}"
+                CommandParameter="conn"/>
+
+        <Button x:Name="ConnectButton_Copy" Width="219"
+            Height="133" Grid.Row="1"
+            Content="DISCONNECT"
+            Background="AliceBlue" Margin="501,39.2,80,52.6"
+            Command="{Binding ButtonCommand}"
+            CommandParameter="decon"/>
+
+        <TextBlock x:Name="ConStat"
+                   Grid.Row="1"
+                   Foreground="#707070" FontSize="12"
+                   FontWeight="Bold" TextAlignment="Center"
+                   VerticalAlignment="Bottom"
+                   Text="{Binding Connection}"
+                   Margin="20"/>
+        <TextBox x:Name="portNom" Height="50" Width="178" 
+                 VerticalAlignment="Bottom"
+                 HorizontalAlignment="Left" Margin="180,0"
+                 Text="{Binding comm, UpdateSourceTrigger=PropertyChanged}"
+                 />
+
+        <TextBox x:Name="BandRate" Height="50" Width="178" 
+                 VerticalAlignment="Bottom"
+                 HorizontalAlignment="Right" Margin="180,0" 
+                 Style="{StaticResource YoussefTxtBox}"/>
+
+
+    </Grid>
+
+    <!--BUTTONS-->
+
+    <!--Button Grid.Row="1" Grid.Column="0" 
+                Command="{Binding ButtonCommand}"
+                CommandParameter="PV"
+                Background="Transparent"
+                Margin="0,0,6,9.4" Height="133" BorderBrush="{x:Null}" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="219"
+                >
+            <Rectangle Fill="#FFF4F4F5"
+                HorizontalAlignment="Right" 
+                Height="133.33"  
+                StrokeThickness="0" VerticalAlignment="Bottom"
+                Width="215.74" RadiusY="22.3" RadiusX="22.3"/>
+        </Button>
+
+        <Button Grid.Row="1" Grid.Column="2" 
+                Command="{Binding ButtonCommand}"
+                CommandParameter="TS"
+                Background="Transparent"
+                Margin="0,0,6,9.4" Height="133" BorderBrush="{x:Null}" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="219"
+                >
+
+
+            <Rectangle 
+                   Fill="#FFF4F4F5" HorizontalAlignment="Left" 
+                   Height="133.33"  StrokeThickness="0" 
+                   VerticalAlignment="Bottom" Width="215.74" 
+                   RadiusY="22.3" RadiusX="22.3"/>
+        </Button>
+
+
+        <Button Grid.Row="3" Grid.Column="0" 
+                Command="{Binding ButtonCommand}"
+                CommandParameter="PV"
+                Background="Transparent"
+                Margin="0,0,6,9.4" Height="133" BorderBrush="{x:Null}" VerticalAlignment="Top" HorizontalAlignment="Right" Width="219"
+                >
+
+            <Rectangle Grid.Row="3" Grid.Column="0" 
+                   Fill="#FFF4F4F5" HorizontalAlignment="Center" Height="134" StrokeThickness="0" VerticalAlignment="Center" Width="216" RadiusY="22.3" RadiusX="22.3"/>
+        </Button>
+        <Button Grid.Row="3" Grid.Column="3" 
+                Command="{Binding ButtonCommand}"
+                CommandParameter="PV"
+                Background="Transparent"
+                Margin="0,0,6,9.4" Height="133" BorderBrush="{x:Null}" VerticalAlignment="Top" HorizontalAlignment="Left" Width="219"
+                >
+
+
+            <Rectangle Grid.Row="3" Grid.Column="2" 
+                   Fill="#FFF4F4F5" HorizontalAlignment="Center" Height="133"  StrokeThickness="0" VerticalAlignment="Center" Width="216" RadiusY="22.3" RadiusX="22.3"/>
+        </Button-->
+
+
+
+
+    <!--Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition Width="1"/>
@@ -22,54 +131,45 @@
                        Foreground="#707070" FontSize="36" FontWeight="Bold" TextAlignment="Center"
                        Margin="0,20,0,20"
                        Grid.Column="0"
-                       Grid.ColumnSpan="3"/>
-        <Button x:Name="PricepaleButton" Content="SCARA&#10;PRINCIPLES"  
+                       Grid.ColumnSpan="3"/-->
+
+    <!--StackPanel>
+            <TextBlock Text="WELCOME TO SCARA PROJECT GUI" 
+                       Foreground="#707070" FontSize="36" FontWeight="Bold" TextAlignment="Center"
+                       Margin="0,20,0,20"/>
+            <StackPanel Orientation="Horizontal" Margin="50, 20, 50 ,20">
+            <Border Width="216"
+                        Height="133">
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,0" 
+                                             EndPoint="1,2">
+                        <GradientStop Color="#BEBEBE" Offset="0"/>
+                        <GradientStop Color="#777777" Offset="1"/>
+
+                    </LinearGradientBrush>
+                </Border.Background>
+                <Border.Clip>
+                    <RectangleGeometry RadiusX="32"
+                                           RadiusY="32"
+                                           Rect="0,0,216,133"  />
+                </Border.Clip>
+            </Border>
+        </StackPanel>
+        </StackPanel-->
+    <!--Rectangle x:Name="PricepaleButton"  
                 Margin="0,0,10,10.2" 
                 Grid.Row="1"
                 Grid.Column="0"
                 Width="216" 
                 Height="133.3" 
-                Style="{DynamicResource MenuButtonStyle}" 
-                Background="#FFBEBEBE" Click="PricepaleButton_Click" HorizontalAlignment="Right" VerticalAlignment="Bottom">
-            <Button.Effect>
+                RadiusY="24" RadiusX="24"
+                HorizontalAlignment="Right" 
+                VerticalAlignment="Bottom" 
+                Fill="#FFD1D1D1">
+            <Rectangle.Effect>
                 <DropShadowEffect Opacity="0.16" BlurRadius="3" Direction="260"/>
-            </Button.Effect>
-        </Button>
-        <Button x:Name="ServoTest" Content="SERVO&#xA;TESTING"  
-            Margin="10,0,0,10.2" 
-            Grid.Row="1" Width="216" 
-            Height="133.3" 
-            Style="{DynamicResource MenuButtonStyle}" 
-            Background="#FFBEBEBE" Click="PricepaleButton_Click" 
-                Grid.Column="2" 
-                HorizontalAlignment="Left" VerticalAlignment="Bottom">
-            <Button.Effect>
-                <DropShadowEffect Opacity="0.16" BlurRadius="3" Direction="260"/>
-            </Button.Effect>
-        </Button>
-        <Button x:Name="About" Content="ABOUT"  
-            Margin="10,9.8,0,0" 
-            Grid.Row="3" Width="216" 
-            Height="133.3" 
-            Style="{DynamicResource MenuButtonStyle}" 
-            Background="#FFBEBEBE" 
-                Click="PricepaleButton_Click" 
-                Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Top">
-            <Button.Effect>
-                <DropShadowEffect Opacity="0.16" BlurRadius="3" Direction="260"/>
-            </Button.Effect>
-        </Button>
-        <Button x:Name="analyse" Content="ANALITYCS"  
-            Margin="0,9.8,10,0" 
-            Grid.Row="3" Width="215.74" 
-            Height="133" 
-            Style="{DynamicResource MenuButtonStyle}" 
-            Background="#FFBEBEBE" Click="PricepaleButton_Click" 
-                VerticalAlignment="Top" HorizontalAlignment="Right">
-            <Button.Effect>
-                <DropShadowEffect Opacity="0.16" BlurRadius="3" Direction="260"/>
-            </Button.Effect>
-        </Button>
+            </Rectangle.Effect>
+        </Rectangle>
         <Rectangle Grid.Column="0" Grid.Row="2" 
                    Grid.ColumnSpan="3"
                    Fill="#FF4D4D4D" 
@@ -81,5 +181,5 @@
                    Fill="#FF4D4D4D" 
                    VerticalAlignment="Center" 
                    Width="1" Height="333"/>
-    </Grid>
+    </Grid-->
 </UserControl>

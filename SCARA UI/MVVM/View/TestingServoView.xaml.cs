@@ -16,15 +16,13 @@ using System.Windows.Shapes;
 namespace SCARA_UI.MVVM.View
 {
     /// <summary>
-    /// Interaction logic for HomeView.xaml
+    /// Interaction logic for TestingServoView.xaml
     /// </summary>
-    public partial class HomeView : UserControl
+    public partial class TestingServoView : UserControl
     {
-        public HomeView()
+        public TestingServoView()
         {
             InitializeComponent();
         }
-
-        
     }
 }

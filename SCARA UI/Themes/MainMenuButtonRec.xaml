@@ -32,13 +32,12 @@
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Grid HorizontalAlignment="Left" Height="133.3" VerticalAlignment="Top" Width="215.74">
                         <Rectangle Fill="#FFBEBEBE" StrokeThickness="0"
-                                   HorizontalAlignment="Left" Height="{TemplateBinding Height }" RadiusY="24" RadiusX="24" Stroke="Black" 
-                                   VerticalAlignment="Top" Width="{TemplateBinding Width}"/>
+                                   HorizontalAlignment="Left" Height="133.3" RadiusY="24" RadiusX="24" Stroke="Black" VerticalAlignment="Top" Width="215.74"/>
                         <TextBlock  VerticalAlignment="Center"
                                     HorizontalAlignment="Center"
                                     Foreground="#707070"
                                     Text="{TemplateBinding Content}" 
-                                    FontSize="12"/>
+                                    FontSize="26"/>
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsDefaulted" Value="true"/>
