@@ -11,28 +11,81 @@
         ResizeMode="NoResize"
         Background="Transparent"
         AllowsTransparency="True">
-    
+
     <Window.DataContext>
         <viewModel:MainViewModel/>
     </Window.DataContext>
-    
+
     <Border Background="White"
             CornerRadius="10">
-        <Grid>
+        <Grid x:Name="GridOfWindow" MouseLeftButtonDown="GridOfWindow_MouseLeftButtonDown">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="58"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
+                <RowDefinition Height="52"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
 
-            <ContentControl Grid.Column="1"
+            <!--LOGO-->
+
+            <Rectangle Height="52" Width="58" 
+                       Fill="#FF323030" 
+                       Grid.Column="0">
+            </Rectangle>
+            <Rectangle RadiusY="3" RadiusX="3" Fill="Yellow"
+                       Grid.Column="0"
+                       Margin="16,10,0,0" 
+                       HorizontalAlignment="Left" 
+                       Width="6" Height="28" 
+                       VerticalAlignment="Top"/>
+            <Rectangle RadiusY="3" RadiusX="3" Fill="Yellow"
+                Grid.Column="0"
+                Margin="26,10,0,0" 
+                HorizontalAlignment="Left" 
+                Width="6" Height="28" 
+                VerticalAlignment="Top"/>
+            <Rectangle RadiusY="3" RadiusX="3" Fill="Yellow"
+                Grid.Column="0"
+                Margin="36,10,0,0" 
+                HorizontalAlignment="Left" 
+                Width="6" Height="28"
+                VerticalAlignment="Top"/>
+            
+            <!--View Section-->
+
+            <ContentControl Grid.Column="1" Grid.RowSpan="2"
                             Margin="10"
                             Content="{Binding CurentView}"/>
 
+            <!--Side Bar-->
+            <Rectangle Height="720" Width="58" 
+                       Fill="#FF323030" 
+                       Grid.Column="0" Grid.Row="1">
+            </Rectangle>
+            
+            <StackPanel Grid.Column="0" Grid.Row="1">
+                <RadioButton HorizontalAlignment="Left" 
+                             VerticalAlignment="Top" Width="58" Height="52"
+                             Background="Transparent"
+                             Command="{Binding TestingServoCommand}" 
+                             BorderBrush="{x:Null}" Foreground="{x:Null}"/>
+                <RadioButton HorizontalAlignment="Left" VerticalAlignment="Top" Width="58" Height="52"
+                     Background="Transparent"
+                     Command="{Binding HomeViewCommand}" 
+                     BorderBrush="{x:Null}" Foreground="{x:Null}"/>
+                <RadioButton HorizontalAlignment="Left" 
+                             VerticalAlignment="Top" 
+                             Width="58" Height="52"
+                             Background="Transparent"
+                             Command="{Binding CinematicsCommand}" 
+                             BorderBrush="{x:Null}" Foreground="{x:Null}"/>
+            </StackPanel>
+
+
         </Grid>
-        
+
     </Border>
 
 </Window>

@@ -18,7 +18,7 @@ namespace SCARA_UI.core
             remove { CommandManager.RequerySuggested -= value; }
         }
 
-        public RelayCommand(Action<object> execute, Func<Object, bool> canExecute)
+        public RelayCommand(Action<object> execute, Func<Object, bool> canExecute = null)
         {
             _execute = execute;
             _canExecute = canExecute;
