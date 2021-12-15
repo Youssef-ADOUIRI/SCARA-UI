@@ -30,20 +30,39 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
-                    <Grid HorizontalAlignment="Left" Height="133.3" VerticalAlignment="Top" Width="215.74">
-                        <Rectangle Fill="#FFBEBEBE" StrokeThickness="0"
-                                   HorizontalAlignment="Left" Height="{TemplateBinding Height }" RadiusY="24" RadiusX="24" Stroke="Black" 
-                                   VerticalAlignment="Top" Width="{TemplateBinding Width}"/>
+                    <Grid>
+                        <Rectangle StrokeThickness="0"
+                                   x:Name="Back"
+                                   Fill="#FFBEBEBE"
+                                   HorizontalAlignment="Stretch"
+                                   VerticalAlignment="Stretch"     
+                                   RadiusY="24" RadiusX="24"
+                                   Stroke="Black">
+                            <Rectangle.Effect>
+                                <DropShadowEffect Color="#000000" 
+                                                  Opacity="0.35"
+                                                  Direction="220"
+                                                  ShadowDepth="3" 
+                                                  BlurRadius="6"/>
+                            </Rectangle.Effect>
+                        </Rectangle>
                         <TextBlock  VerticalAlignment="Center"
                                     HorizontalAlignment="Center"
-                                    Foreground="#707070"
-                                    Text="{TemplateBinding Content}" 
-                                    FontSize="12"/>
+                                    IsHitTestVisible="False"
+                                    Text="{TemplateBinding Property=Content}"
+                                    Foreground="Black"
+                                    FontSize="12"
+                                    
+                                    Visibility="Visible">
+                        </TextBlock>
+                        
                     </Grid>
                     <ControlTemplate.Triggers>
-                        <Trigger Property="IsDefaulted" Value="true"/>
+
+                        <Trigger Property="IsPressed" Value="true">
+                        </Trigger>
+                        
                         <Trigger Property="IsMouseOver" Value="true"/>
-                        <Trigger Property="IsPressed" Value="true"/>
                         <Trigger Property="IsEnabled" Value="false"/>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

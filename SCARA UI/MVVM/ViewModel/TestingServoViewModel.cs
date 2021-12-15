@@ -29,11 +29,20 @@ namespace SCARA_UI.MVVM.ViewModel
             ButtonCommand = new RelayCommand(new Action<object>(test));
         }
 
+        MainWindow main = (MainWindow)System.Windows.Application.Current.MainWindow;
+
         public void test(object b)
         {
-            if (((MainWindow)System.Windows.Application.Current.MainWindow).isConnected == true)
+            if (main.isConnected == true )
             {
-
+                if(b.ToString().ToUpper() == "A")
+                {
+                    main.writeIn("a");
+                }
+                else if (b.ToString().ToUpper() == "B")
+                {
+                    main.writeIn("b");
+                }
             };
         }
     }

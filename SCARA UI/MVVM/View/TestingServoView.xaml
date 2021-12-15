@@ -17,22 +17,24 @@
                      Width="178"
                      Height="50"
                      Style="{StaticResource YoussefTxtBox}"/>
-        <Button Width="189" Height="58" 
+        <Button Width="190" Height="58" 
                 Margin="300,307,311,84.6" 
                 Content="START"
                 HorizontalAlignment="Center"
-                VerticalAlignment="Center" 
+                VerticalAlignment="Bottom" 
                 Style="{StaticResource MenuButtonStyle }"
                 Command="{Binding ButtonCommand}"
-                CommandParameter="PPP">
+                CommandParameter="a">
         </Button>
 
-        <Button Width="100" Height="45" 
+        <Button Width="190" Height="58" 
                 Margin="300,0,311,15"
                 Content="STOP"
-                Foreground="White"
+                x:Name="STOP"
                 HorizontalAlignment="Center" 
                 VerticalAlignment="Bottom" 
-                Style="{StaticResource MenuButtonStyle }"></Button>
+                Style="{StaticResource MenuButtonStyle}"
+                Command="{Binding ButtonCommand}"
+                CommandParameter="b"></Button>
     </Grid>
 </UserControl>

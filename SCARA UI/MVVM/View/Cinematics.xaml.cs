@@ -24,5 +24,7 @@ namespace SCARA_UI.MVVM.View
         {
             InitializeComponent();
         }
+
+
     }
 }

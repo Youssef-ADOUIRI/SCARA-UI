@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:SCARA_UI.MVVM.View"
              xmlns:viewModel ="clr-namespace:SCARA_UI.MVVM.ViewModel"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="720" d:DesignWidth="1220">
 
     <UserControl.DataContext>
         <viewModel:HomeViewModel/>
@@ -20,41 +20,55 @@
 
         <TextBlock Text="WELCOME TO SCARA PROJECT GUI" 
                        Foreground="#707070" FontSize="36" FontWeight="Bold" TextAlignment="Center"
-                       Margin="0,20,0,150.8"
+                       Margin="0,20,0,150"
                        Grid.Column="0"/>
 
 
-        <Button x:Name="ConnectButton" Width="219"
-                Height="133" Grid.Row="1" 
+        <Button x:Name="ConnectButton"
+                Grid.Row="1" 
                 Content="CONNECT"
-                Background="AliceBlue" Margin="151,39.2,430,52.6"
+                VerticalAlignment="Bottom"
+                HorizontalAlignment="Center"
+                Margin="300,0,0,100"
                 Command="{Binding ButtonCommand}"
-                CommandParameter="conn"/>
+                CommandParameter="conn"
+                Style="{StaticResource MenuButtonStyle}"
+                Width="215" Height="133"/>
 
-        <Button x:Name="ConnectButton_Copy" Width="219"
-            Height="133" Grid.Row="1"
+        <Button x:Name="ConnectButton_Copy"
+            Grid.Row="1"
             Content="DISCONNECT"
-            Background="AliceBlue" Margin="501,39.2,80,52.6"
+            VerticalAlignment="Bottom"
+            HorizontalAlignment="Center"
+            Margin="0,0,300,100"
             Command="{Binding ButtonCommand}"
-            CommandParameter="decon"/>
+            CommandParameter="decon"
+            Style="{StaticResource MenuButtonStyle}"
+            Width="215" Height="133">
+
+        </Button>
 
         <TextBlock x:Name="ConStat"
                    Grid.Row="1"
                    Foreground="#707070" FontSize="12"
                    FontWeight="Bold" TextAlignment="Center"
                    VerticalAlignment="Bottom"
-                   Text="{Binding Connection}"
+                   Text="{Binding Connection , UpdateSourceTrigger=PropertyChanged}"
                    Margin="20"/>
         <TextBox x:Name="portNom" Height="50" Width="178" 
                  VerticalAlignment="Bottom"
-                 HorizontalAlignment="Left" Margin="180,0"
+                 HorizontalAlignment="Left"
+                 Margin="355,0,0,36"
+                 Style="{StaticResource YoussefTxtBox}"
                  Text="{Binding comm, UpdateSourceTrigger=PropertyChanged}"
                  />
 
         <TextBox x:Name="BandRate" Height="50" Width="178" 
                  VerticalAlignment="Bottom"
-                 HorizontalAlignment="Right" Margin="180,0" 
-                 Style="{StaticResource YoussefTxtBox}"/>
+                 HorizontalAlignment="Right"
+                 Margin="0,0,368,36" 
+                 Style="{StaticResource YoussefTxtBox}"
+                 Text="{Binding BandRate, UpdateSourceTrigger=PropertyChanged}"/>
 
 
     </Grid>
