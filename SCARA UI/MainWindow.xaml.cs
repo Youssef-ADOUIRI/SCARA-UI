@@ -42,16 +42,19 @@ namespace SCARA_UI
             InitializeComponent();
         }
 
-        public void connect( string com )
+        public void connect( string com  , int bR)
         {
+            // MessageBox.Show(com + " " +bR.ToString());
+
             try
             {
+                RateBand = bR;
                 pn = com;
                 String portName = pn;
                 sp.PortName = portName;
                 sp.BaudRate = RateBand;
                 sp.Open();
-                MessageBox.Show("Connected");
+                //MessageBox.Show("Connected");
                 isConnected = true;
             }
             catch (Exception)

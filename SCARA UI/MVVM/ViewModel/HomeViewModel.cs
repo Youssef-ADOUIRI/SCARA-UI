@@ -28,6 +28,7 @@ namespace SCARA_UI.MVVM.ViewModel
         public HomeViewModel()
         {
             ButtonCommand = new RelayCommand(new Action<object>(choose));
+            Connection = "Disconnected";
         }
 
         /*
@@ -44,7 +45,7 @@ namespace SCARA_UI.MVVM.ViewModel
         }
         */
 
-        public string conStat = "Disconnected";
+       
 
         MainWindow main = (MainWindow)System.Windows.Application.Current.MainWindow;
 
@@ -54,18 +55,35 @@ namespace SCARA_UI.MVVM.ViewModel
             if (b.ToString() != "decon")
             {
                 //main.connect(b.ToString());
-                conStat = "Connected";
-                main.connect(_comm);
-                MessageBox.Show(_comm);
+                
+                try
+                {
+                        bool isCorrect = Int32.TryParse(_BandRate ,out int j);
+                        if (isCorrect) {
+                            main.connect(_comm, bR);
+                            Connection = "Connected";
+                        }
+                }
+                catch(FormatException)
+                {
+                    MessageBox.Show("Format incorrect de Bande Rate!");
+                }
+                
             }
             else{
                 main.disconnect();
-                conStat = "Disconnected";
+                Connection = "Disconnected";
             }
         }
-
+        public string conStat;
         public string Connection {
-            get { return conStat; }
+            get { 
+                return conStat; 
+            }
+            set { 
+                conStat = value;
+                OnPropertyChanged("Connection");
+            }
         }
 
         public string _comm;
@@ -82,6 +100,26 @@ namespace SCARA_UI.MVVM.ViewModel
                 OnPropertyChanged("comm");
             }
             
+        }
+
+
+        private int bR = 9600;
+
+        public string _BandRate;
+
+        public string BandRate
+        {
+            get
+            {
+                return _BandRate;
+            }
+
+            set
+            {
+                _BandRate = value;
+                OnPropertyChanged("BandRate");
+            }
+
         }
     }
 }

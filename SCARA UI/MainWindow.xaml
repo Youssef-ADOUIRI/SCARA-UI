@@ -16,7 +16,7 @@
         <viewModel:MainViewModel/>
     </Window.DataContext>
 
-    <Border Background="White"
+    <Border Background="WhiteSmoke"
             CornerRadius="10">
         <Grid x:Name="GridOfWindow" MouseLeftButtonDown="GridOfWindow_MouseLeftButtonDown">
             <Grid.ColumnDefinitions>
@@ -68,19 +68,19 @@
             <StackPanel Grid.Column="0" Grid.Row="1">
                 <RadioButton HorizontalAlignment="Left" 
                              VerticalAlignment="Top" Width="58" Height="52"
-                             Background="Transparent"
-                             Command="{Binding TestingServoCommand}" 
-                             BorderBrush="{x:Null}" Foreground="{x:Null}"/>
-                <RadioButton HorizontalAlignment="Left" VerticalAlignment="Top" Width="58" Height="52"
-                     Background="Transparent"
-                     Command="{Binding HomeViewCommand}" 
-                     BorderBrush="{x:Null}" Foreground="{x:Null}"/>
+                             Command="{Binding HomeViewCommand}" 
+                             Content="HH"
+                             Style="{StaticResource MenuTheme}"/>
                 <RadioButton HorizontalAlignment="Left" 
+                             Content="BB"
+                             VerticalAlignment="Top" Width="58" Height="52"
+                             Command="{Binding TestingServoCommand}" 
+                             Style="{StaticResource MenuTheme}"/>
+                <RadioButton Content="CC" HorizontalAlignment="Left" 
                              VerticalAlignment="Top" 
                              Width="58" Height="52"
-                             Background="Transparent"
                              Command="{Binding CinematicsCommand}" 
-                             BorderBrush="{x:Null}" Foreground="{x:Null}"/>
+                             Style="{StaticResource MenuTheme}"/>
             </StackPanel>
 
 

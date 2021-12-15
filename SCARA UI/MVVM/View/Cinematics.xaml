@@ -17,6 +17,24 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
+        <Line Stroke="Black" StrokeThickness="1"
+              HorizontalAlignment="Left"
+              VerticalAlignment="Center"
+              Grid.Column="1"
+              SnapsToDevicePixels="True"
+              Visibility="Visible"
+              X1="0" Y1="450" Height="485"
+              />
+        <Line Stroke="Black" StrokeThickness="1"
+              HorizontalAlignment="Center"
+              VerticalAlignment="Bottom"
+              Grid.Column="0"
+              SnapsToDevicePixels="True"
+              Visibility="Visible"
+              X1="0" X2="400" Width="200"
+              Margin="0,0,0,240"
+              />
+
         <TextBlock Text="CINEMATICS"
                    Grid.Column="1"
                    FontSize="40"
@@ -38,35 +56,42 @@
                  HorizontalAlignment="Center"
                  VerticalAlignment="Top"
                  Margin="0,100 , 0, 0"
-                 Text="{Binding x , UpdateSourceTrigger=PropertyChanged }"/>
+                 Text="{Binding x , UpdateSourceTrigger=PropertyChanged }"
+                 Style="{StaticResource YoussefTxtBox}"/>
         <TextBox x:Name="Y_Axis"
                  Grid.Column="0"
                  Height="50" Width="178"
                  HorizontalAlignment="Center"
                  VerticalAlignment="Top"
                  Margin="0,200 , 0, 0"
-                 Text="{Binding y , UpdateSourceTrigger=PropertyChanged }"/>
+                 Text="{Binding y , UpdateSourceTrigger=PropertyChanged }"
+                 Style="{StaticResource YoussefTxtBox}"/>
+
         <TextBox x:Name="Speed"
                  Grid.Column="0"
                  Height="50" Width="178"
                  HorizontalAlignment="Center"
                  VerticalAlignment="Top"
-                 Margin="0,350 , 0, 0"/>
+                 Margin="0,350 , 0, 0"
+                 Style="{StaticResource YoussefTxtBox}"/>
 
         <Button x:Name="Exec_button" Content="start"
+                Style="{StaticResource MenuButtonStyle}"
                 Grid.Column="0" 
                 HorizontalAlignment="Center"
                 VerticalAlignment="Bottom"
-                Margin="20"
+                Margin="0,0,0,100"
                 Width="170" Height="70"
                 Command="{Binding ButtonCommand}"
                 CommandParameter="start"/>
 
-        <Canvas Background="{Binding Background}"
+        <Canvas Background="#FF282828"
                 Width="500"
                 Height="300"
                 Grid.Column="1"
-                DataContext="{Binding DrawCanvas}"/>
+                Focusable="True"
+                DataContext="{Binding DrawCanvas}"
+                />
 
         <Path Data="{Binding geo}"
               Grid.Column="1"

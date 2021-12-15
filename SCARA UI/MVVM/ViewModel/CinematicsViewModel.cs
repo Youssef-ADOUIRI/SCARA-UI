@@ -103,6 +103,11 @@ namespace SCARA_UI.MVVM.ViewModel
             DrawCanvas.Background = Brushes.DarkGray;
             DrawCanvas.Children.Add(myPath);
         }
+
+
+
+
+
         
 
 
@@ -133,14 +138,26 @@ namespace SCARA_UI.MVVM.ViewModel
             }
         }
 
+        private const double L1 = 175 , L2 = 175;
 
         MainWindow main = (MainWindow)System.Windows.Application.Current.MainWindow;
 
         public Tuple<double, double> IK(Tuple<double, double> point)
         {
             double t1 = 0 , t2 = 0;
+            double x = point.Item1;
+            double y = point.Item2;
 
             // Inverse kinematics
+            double A = (x * x + y * y) - (L1 * L1 + L2 * L2);
+            double B = 2 * L1 * L2;
+
+            t2 = Math.Acos(A / B);
+
+            double C = y * (L1 + L2 * Math.Cos(t2)) - x * L2 * Math.Cos(t2);
+            double D = x * (L1 + L2 * Math.Cos(t2)) - y * L2 * Math.Cos(t2);
+
+            t1 = Math.Atan(C / D);
 
 
             Tuple<double, double> tetas = new Tuple<double, double>(t1 , t2);

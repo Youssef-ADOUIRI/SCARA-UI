@@ -16,6 +16,7 @@
                                      Foreground="#CFCFCF"
                                      Margin="1"
                                      BorderBrush="Transparent"
+                                     Text="{Binding RelativeSource={RelativeSource TemplatedParent} , Path=Text}"
                                      BorderThickness="0"
                                      x:Name="InputBox"/>
                             <TextBlock IsHitTestVisible="False"
