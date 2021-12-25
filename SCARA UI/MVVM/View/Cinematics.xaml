@@ -11,6 +11,7 @@
     <UserControl.DataContext>
         <viewModel:CinematicsViewModel/>
     </UserControl.DataContext>
+    
     <Grid x:Name="CinematicsGrid">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="425"/>
@@ -57,7 +58,7 @@
                  VerticalAlignment="Top"
                  Margin="0,100 , 0, 0"
                  Text="{Binding x , UpdateSourceTrigger=PropertyChanged }"
-                 Style="{StaticResource YoussefTxtBox}"/>
+                 Style="{StaticResource YoussefTxtBox}" BorderBrush="{x:Null}"/>
         <TextBox x:Name="Y_Axis"
                  Grid.Column="0"
                  Height="50" Width="178"
@@ -73,6 +74,7 @@
                  HorizontalAlignment="Center"
                  VerticalAlignment="Top"
                  Margin="0,350 , 0, 0"
+                 Text="{Binding s , UpdateSourceTrigger=PropertyChanged}"
                  Style="{StaticResource YoussefTxtBox}"/>
 
         <Button x:Name="Exec_button" Content="start"
@@ -85,19 +87,62 @@
                 Command="{Binding ButtonCommand}"
                 CommandParameter="start"/>
 
-        <Canvas Background="#FF282828"
-                Width="500"
-                Height="300"
+        <!--Canvas x:Name="myCanvas" Cursor = "Cross"
+                DataContext="{Binding myCanvas, UpdateSourceTrigger=PropertyChanged , Mode=TwoWay}"
                 Grid.Column="1"
-                Focusable="True"
-                DataContext="{Binding DrawCanvas}"
-                />
+                Width="500"
+                Height="500"
+                Background="#FF282828">
+            <Line Visibility="Visible" 
+                 Stroke="LightGray" 
+                 Opacity="0.8"
+                 StrokeThickness="1"
+                 X1="250" Y1="0"
+                 X2="250" Y2="500"/>
+            <Line Visibility="Visible" 
+                 Stroke="LightGray" 
+                 Opacity="0.8"
+                 StrokeThickness="1"
+                 X1="0" Y1="250"
+                 X2="500" Y2="250"/>
+            <Path Visibility="Visible" Stroke="LightGray"
+                  StrokeThickness="1">
+                <Path.Data>
+                    <EllipseGeometry Center="250 250" 
+                                     RadiusX="10"
+                                     RadiusY="10"/>
+                </Path.Data>
+            </Path>
 
-        <Path Data="{Binding geo}"
+        </Canvas-->
+
+        <ItemsControl ItemsSource="{Binding ShapeItems , Mode=TwoWay}" Grid.Column="1">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Canvas Background="#FF282828"
+                            Height="500"
+                            Width="500"
+                            Cursor = "Cross">
+                    </Canvas>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Path Data="{Binding Geometry , Mode=TwoWay }"
+                          Fill="{Binding Fill}"
+                          Stroke="{Binding Stroke}"
+                          StrokeThickness="{Binding StrokeThickness}"
+                          Opacity="{Binding opacity}"/>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+        
+
+        <!--Path Data="{Binding geo}"
               Grid.Column="1"
               HorizontalAlignment="Center"
-              VerticalAlignment="Center"
+              VerticalAlignment="Bottom"
               Stroke="Yellow"
-              StrokeThickness="3"/>
+              StrokeThickness="3"/-->
     </Grid>
 </UserControl>

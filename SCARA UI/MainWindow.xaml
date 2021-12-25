@@ -10,7 +10,8 @@
         WindowStyle="None"
         ResizeMode="NoResize"
         Background="Transparent"
-        AllowsTransparency="True">
+        AllowsTransparency="True"
+        Icon="Groupe-2.ico">
 
     <Window.DataContext>
         <viewModel:MainViewModel/>
@@ -25,7 +26,8 @@
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="52"/>
-                <RowDefinition/>
+                <RowDefinition>
+                </RowDefinition>
             </Grid.RowDefinitions>
 
             <!--LOGO-->
@@ -60,9 +62,11 @@
                             Content="{Binding CurentView}"/>
 
             <!--Side Bar-->
-            <Rectangle Height="720" Width="58" 
+            <Rectangle Height="668" Width="58" 
                        Fill="#FF323030" 
-                       Grid.Column="0" Grid.Row="1">
+                       Grid.Column="0" Grid.Row="1"
+                       RadiusY="20"
+                       >
             </Rectangle>
             
             <StackPanel Grid.Column="0" Grid.Row="1">
@@ -81,8 +85,16 @@
                              Width="58" Height="52"
                              Command="{Binding CinematicsCommand}" 
                              Style="{StaticResource MenuTheme}"/>
+                
             </StackPanel>
-
+            
+            <RadioButton Content="EXT" HorizontalAlignment="Left" 
+                             VerticalAlignment="Bottom" 
+                             Width="58" Height="52"
+                             Grid.Column="0" 
+                             Grid.Row="1"
+                             Click="RadioButton_Click"
+                             Style="{StaticResource MenuTheme}"/>
 
         </Grid>
 

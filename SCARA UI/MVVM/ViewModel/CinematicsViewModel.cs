@@ -10,9 +10,49 @@ using System.Windows;
 using System.Windows.Shapes;
 using System.Windows.Media;
 using System.Windows.Controls;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 
 namespace SCARA_UI.MVVM.ViewModel
 {
+
+    class ShapeData : ObservableObject
+    {
+        private string type;
+        public string Type 
+        { 
+            get 
+            { 
+                return type; 
+            } 
+            set 
+            { 
+                type = value;
+                OnPropertyChanged("Type");
+            } 
+        }
+        private Geometry geometry;
+        public Geometry Geometry 
+        { 
+            get
+            {
+                return geometry;
+            }
+            set
+            {
+                geometry = value;
+                OnPropertyChanged("Geometry");
+            }
+        }
+        private Brush fill;
+        public Brush Fill { get { return fill; } set { fill = value; OnPropertyChanged("Fill"); } }
+        private Brush stroke;
+        public Brush Stroke { get { return stroke; } set { stroke = value; OnPropertyChanged("Stroke"); } }
+        public double StrokeThickness { get; set; }
+        public float opacity { get; set; }
+    }
+
+
     class CinematicsViewModel : ObservableObject
     {
 
@@ -33,6 +73,7 @@ namespace SCARA_UI.MVVM.ViewModel
         {
             ButtonCommand = new RelayCommand(new Action<object>(Exec));
             setPath();
+            setCanvas();
         }
 
         public void Exec(object o)
@@ -42,14 +83,17 @@ namespace SCARA_UI.MVVM.ViewModel
                 //start motors:
                 //MessageBox.Show(x.ToString() + " " + y.ToString() );
                 setValues();
-                
             }
         }
 
 
         public void setValues()
         {
-            coordonates = "x = " + x.ToString() + "  y = " + y.ToString();
+            var tet = IK(Tuple.Create(x, y));
+            double t1 = tet.Item1;
+            double t2 = tet.Item2;
+            coordonates = "x = " + x.ToString() + "  y = " + y.ToString(); /*+ "   " + t1.ToString() + " " + t2.ToString() + " s = " + s.ToString()*/
+            submit(tet);
             //MessageBox.Show(coordonates);
         }
 
@@ -70,17 +114,7 @@ namespace SCARA_UI.MVVM.ViewModel
 
 
         Path myPath = new Path(); // drawing Scara Path
-        EllipseGeometry myEllipseGeometry = new EllipseGeometry();
-
-        public EllipseGeometry geo
-        {
-            get { return myEllipseGeometry; }
-            set
-            {
-                //myEllipseGeometry = value;
-                OnPropertyChanged("geo");
-            }
-        }
+        
 
         public Canvas DrawCanvas
         {
@@ -90,25 +124,25 @@ namespace SCARA_UI.MVVM.ViewModel
 
         private void setPath()
         {
-            myPath.Stroke = Brushes.Yellow;
-            myPath.StrokeThickness = 4;
-            myPath.HorizontalAlignment = HorizontalAlignment.Left;
-            myPath.VerticalAlignment = VerticalAlignment.Center;
-            myEllipseGeometry.Center = new Point(50, 50);
-            myPath.Visibility = Visibility.Visible;
-            myEllipseGeometry.RadiusX = 50;
-            myEllipseGeometry.RadiusY = 25;
-            myPath.Data = myEllipseGeometry;
-            DrawCanvas = new Canvas();
-            DrawCanvas.Background = Brushes.DarkGray;
-            DrawCanvas.Children.Add(myPath);
+            L1 = main.L1;
+            L2 = main.L2;
+
+            
         }
 
 
+        private BindingList<ShapeData> _ShapeItems;
+        public BindingList<ShapeData> ShapeItems { 
+            get { 
+                return _ShapeItems; 
+            } 
+            set {
+                _ShapeItems = value;
+                OnPropertyChanged("ShapeItems");
+            } 
+        }
+    
 
-
-
-        
 
 
         public double _x;
@@ -138,18 +172,35 @@ namespace SCARA_UI.MVVM.ViewModel
             }
         }
 
-        private const double L1 = 175 , L2 = 175;
+        public double _s;
+        public double s
+        {
+            get
+            {
+                return _s;
+            }
+            set
+            {
+
+                _s = value;
+                OnPropertyChanged("s");
+
+            }
+        }
+
+
+        private double L1 = 175 , L2 = 175;
 
         MainWindow main = (MainWindow)System.Windows.Application.Current.MainWindow;
 
         public Tuple<double, double> IK(Tuple<double, double> point)
         {
-            double t1 = 0 , t2 = 0;
+            double t1, t2;
             double x = point.Item1;
             double y = point.Item2;
 
             // Inverse kinematics
-            double A = (x * x + y * y) - (L1 * L1 + L2 * L2);
+            double A = x * x + y * y - (L1 * L1 + L2 * L2);
             double B = 2 * L1 * L2;
 
             t2 = Math.Acos(A / B);
@@ -157,19 +208,147 @@ namespace SCARA_UI.MVVM.ViewModel
             double C = y * (L1 + L2 * Math.Cos(t2)) - x * L2 * Math.Cos(t2);
             double D = x * (L1 + L2 * Math.Cos(t2)) - y * L2 * Math.Cos(t2);
 
-            t1 = Math.Atan(C / D);
+            t1 = Math.Atan2(C , D);
+            //teta1 = t1;
+            //teta2 = t2;
 
 
-            Tuple<double, double> tetas = new Tuple<double, double>(t1 , t2);
+            Tuple<double, double> tetas = new Tuple<double, double>(180 - (t1 * (180 / Math.PI)), 180 - (t2 * (180 / Math.PI)));
 
             return tetas;
         }
 
+        
+
+
         public void submit(Tuple<double, double> tetas)
         {
-            string cmd = tetas.Item1.ToString() + " " + tetas.Item2.ToString();
-            main.writeIn("b " + cmd);
+            string cmd = tetas.Item1.ToString("#.##") + " " + tetas.Item2.ToString("#.##") + " " + s.ToString("#.##");
+            main.writeIn("P " + cmd);
+            rotateL1(tetas.Item1 * (Math.PI / 180));
+            rotateL2(tetas.Item2 * (Math.PI / 180));
         }
+
+        
+        private Point c1;
+        private Point c2;
+        int radius = 5;
+        public ShapeData s1;
+        public ShapeData s2;
+
+        private void ss1()
+        {
+            s1.Geometry = new LineGeometry(new Point(250, 250), c1);
+            ShapeItems[3] = s1;
+            ShapeItems[4].Geometry = new EllipseGeometry(c1, radius * 2 / 3, radius * 2 / 3);
+        }
+        private void ss2()
+        {
+            s2.Geometry = new LineGeometry(c1, c2);
+            ShapeItems[5] = s2;
+        }
+
+        private void setCanvas()
+        {
+            //add canvas grid
+            ShapeItems = new BindingList<ShapeData>();
+            ShapeItems.Add(new ShapeData
+            {
+                Type = "Circle",
+                Geometry = new EllipseGeometry(new Point(250, 250), radius, radius),
+                Fill = Brushes.Transparent,
+                Stroke = Brushes.LightGray,
+                StrokeThickness = 1,
+                opacity = 0.8f
+            });
+
+            ShapeItems.Add(new ShapeData
+            {
+                Type = "Line",
+                Geometry = new LineGeometry(new Point(0, 250), new Point(500, 250)),
+                Fill = Brushes.Transparent,
+                Stroke = Brushes.LightGray,
+                StrokeThickness = 1,
+                opacity = 0.8f
+            });
+            ShapeItems.Add(new ShapeData
+            {
+                Type = "Line",
+                Geometry = new LineGeometry(new Point(250, 0), new Point(250, 500)),
+                Fill = Brushes.Transparent,
+                Stroke = Brushes.LightGray,
+                StrokeThickness = 1,
+                opacity = 0.8f
+            });
+
+
+            //movable object
+            c1 = new Point(250, 500 / 6);
+            c2 = new Point(250, 500 * 2 / 6);
+            
+            //first arm 3
+            s1 = new ShapeData
+            {
+                Type = "Line",
+                Geometry = new LineGeometry(new Point(250, 250), c1),
+                Fill = Brushes.Transparent,
+                Stroke = Brushes.White,
+                StrokeThickness = 2,
+                opacity = 1
+            };
+            ShapeItems.Add(s1);
+            
+            
+
+
+            //joint 4
+            ShapeItems.Add(new ShapeData
+            {
+                Type = "Circle",
+                Geometry = new EllipseGeometry(c1, radius * 2/3, radius*2/3),
+                Fill = Brushes.White,
+                Stroke = Brushes.LightGray,
+                StrokeThickness = 1,
+                opacity = 0.8f
+            });
+
+            //second arm 5
+            s2 = new ShapeData
+            {
+                Type = "Line",
+                Geometry = new LineGeometry(c1, c2),
+                Fill = Brushes.Transparent,
+                Stroke = Brushes.White,
+                StrokeThickness = 2,
+                opacity = 1
+            };
+            ShapeItems.Add(s2);
+
+            rotateL1(Math.PI/4);
+        }
+
+        private double oldt = 0.0f, oldt2 = 0.0f;
+        public double scale;
+
+        public void rotateL1(double t1)
+        {
+            scale = 500 / 6;
+            c1.X = 250 + scale * Math.Sin(t1);
+            c1.Y = 250 - scale * Math.Cos(t1);
+            ss1();
+            oldt = t1;
+            rotateL2(oldt2);
+        }
+
+        public void rotateL2(double t2)
+        {
+            scale = 500 / 6;
+            c2.X = c1.X + scale * Math.Sin(oldt - t2);
+            c2.Y = c1.Y - scale * Math.Cos(oldt - t2);
+            oldt2 = t2;
+            ss2();
+        }
+
 
     }
 }
