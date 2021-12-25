@@ -25,8 +25,13 @@ namespace SCARA_UI
     
     public partial class MainWindow : Window
     {
+
+        // Globale variables
+        public double L1 = 175, L2 = 175;
+
+
         public SerialPort sp = new SerialPort();
-        public string pn = "COM4";
+        public string pn = "COM5";
         public bool isConnected;
         public int RateBand = 9600;
 
@@ -54,7 +59,7 @@ namespace SCARA_UI
                 sp.PortName = portName;
                 sp.BaudRate = RateBand;
                 sp.Open();
-                //MessageBox.Show("Connected");
+                MessageBox.Show("Connected");
                 isConnected = true;
             }
             catch (Exception)
@@ -77,10 +82,18 @@ namespace SCARA_UI
             }
         }
 
+        private void RadioButton_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Application.Current.Shutdown();
+        }
 
         public void writeIn(string cmd)
         {
-            sp.Write(cmd);
+            //sp.Write(cmd);
+            MessageBox.Show(cmd);
+            //
+            //char[] go = new char[3];
+            //sp.Read(go, 0, 3);
         }
         
 

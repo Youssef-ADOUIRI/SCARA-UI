@@ -40,11 +40,12 @@
                                    Stroke="Black">
                             <Rectangle.Effect>
                                 <DropShadowEffect Color="#000000" 
-                                                  Opacity="0.35"
+                                                  Opacity="0.15"
                                                   Direction="220"
-                                                  ShadowDepth="3" 
-                                                  BlurRadius="6"/>
+                                                  ShadowDepth="8" 
+                                                  BlurRadius="10"/>
                             </Rectangle.Effect>
+                            
                         </Rectangle>
                         <TextBlock  VerticalAlignment="Center"
                                     HorizontalAlignment="Center"

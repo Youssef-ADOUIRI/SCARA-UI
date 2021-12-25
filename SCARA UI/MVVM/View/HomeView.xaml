@@ -66,10 +66,59 @@
         <TextBox x:Name="BandRate" Height="50" Width="178" 
                  VerticalAlignment="Bottom"
                  HorizontalAlignment="Right"
-                 Margin="0,0,368,36" 
+                 Margin="0,0,355,36" 
                  Style="{StaticResource YoussefTxtBox}"
                  Text="{Binding BandRate, UpdateSourceTrigger=PropertyChanged}"/>
 
+        <!--Line Stroke="Black" StrokeThickness="1"
+              HorizontalAlignment="Center"
+              VerticalAlignment="Bottom"
+              SnapsToDevicePixels="True"
+              Visibility="Visible"
+              Grid.Row="0"
+              X1="0" X2="100" Y1="0" Y2="0"
+              Margin="320,0,0,15"
+              />
+
+        <Line Stroke="Black" StrokeThickness="1"
+              HorizontalAlignment="Center"
+              VerticalAlignment="Bottom"
+              SnapsToDevicePixels="True"
+              Visibility="Visible"
+              Grid.Row="0"
+              X1="0" X2="100" Width="100"
+              Margin="0,0,335,15"
+              /-->
+        <!--Line Stroke="Black" StrokeThickness="1"
+              HorizontalAlignment="Center"
+              VerticalAlignment="Bottom"
+              SnapsToDevicePixels="True"
+              Visibility="Visible"
+              Grid.Row="0"
+              X1="0" X2="100"
+              Margin="320,0,0,100"
+              />
+
+        <Line Stroke="Black" StrokeThickness="1"
+              HorizontalAlignment="Center"
+              VerticalAlignment="Bottom"
+              SnapsToDevicePixels="True"
+              Visibility="Visible"
+              Grid.Row="0"
+              X1="0" X2="100" 
+              Margin="0,0,335,100"
+              /-->
+
+
+        <Line Stroke="Black" StrokeThickness="1"
+              HorizontalAlignment="Center"
+              VerticalAlignment="Top"
+              SnapsToDevicePixels="True"
+              Visibility="Visible"
+              Grid.Row="1"
+              X1="0" X2="400" Width="400"
+              Margin="0,45,0,0"
+              />
 
     </Grid>
 
