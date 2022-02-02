@@ -8,10 +8,11 @@
              mc:Ignorable="d" 
              d:DesignHeight="720" d:DesignWidth="1220">
 
+
     <UserControl.DataContext>
         <viewModel:CinematicsViewModel/>
     </UserControl.DataContext>
-    
+
     <Grid x:Name="CinematicsGrid">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="425"/>
@@ -28,18 +29,19 @@
               />
         <Line Stroke="Black" StrokeThickness="1"
               HorizontalAlignment="Center"
-              VerticalAlignment="Bottom"
+              VerticalAlignment="Top"
               Grid.Column="0"
               SnapsToDevicePixels="True"
               Visibility="Visible"
               X1="0" X2="400" Width="200"
-              Margin="0,0,0,240"
+              Margin="0,280,0,240"
               />
 
         <TextBlock Text="CINEMATICS"
                    Grid.Column="1"
                    FontSize="40"
                    HorizontalAlignment="Center"
+                   Margin="0,5,0,630"
                    Foreground="#CFCFCF"/>
 
 
@@ -51,41 +53,165 @@
                    VerticalAlignment="Bottom"
                    Foreground="DarkGray"/>
 
+
+        <!--control panel-->
+
+        <TextBlock Text="CONTROLS"
+                   Grid.Column="0"
+                   FontSize="40"
+                   HorizontalAlignment="Center"
+                   Margin="0,5,0,630"
+                   Foreground="#CFCFCF"/>
+
+        <TextBlock Text="XYS :"
+                   Grid.Column="0"
+                   FontSize="13"
+                   VerticalAlignment="Top"
+                   HorizontalAlignment="Left"
+                   Margin="10,70,0,0"
+                   Foreground="Black"
+                   Opacity="0.7"/>
+        <Line Stroke="Black" StrokeThickness="1"
+              HorizontalAlignment="Center"
+              VerticalAlignment="Top"
+              Grid.Column="0"
+              SnapsToDevicePixels="True"
+              Visibility="Visible"
+              X1="0" X2="400" Width="200"
+              Margin="0,80,0,0"
+              />
+
         <TextBox x:Name="X_Axis"
                  Grid.Column="0"
                  Height="50" Width="178"
-                 HorizontalAlignment="Center"
+                 HorizontalAlignment="Left"
                  VerticalAlignment="Top"
-                 Margin="0,100 , 0, 0"
+                 Margin="23,100 , 0, 0"
                  Text="{Binding x , UpdateSourceTrigger=PropertyChanged }"
                  Style="{StaticResource YoussefTxtBox}" BorderBrush="{x:Null}"/>
         <TextBox x:Name="Y_Axis"
                  Grid.Column="0"
                  Height="50" Width="178"
-                 HorizontalAlignment="Center"
+                 HorizontalAlignment="Right"
                  VerticalAlignment="Top"
-                 Margin="0,200 , 0, 0"
+                 Margin="0,100 , 23, 0"
                  Text="{Binding y , UpdateSourceTrigger=PropertyChanged }"
                  Style="{StaticResource YoussefTxtBox}"/>
 
         <TextBox x:Name="Speed"
                  Grid.Column="0"
                  Height="50" Width="178"
-                 HorizontalAlignment="Center"
+                 HorizontalAlignment="Left"
                  VerticalAlignment="Top"
-                 Margin="0,350 , 0, 0"
+                 Margin="23,190 , 0, 0"
                  Text="{Binding s , UpdateSourceTrigger=PropertyChanged}"
                  Style="{StaticResource YoussefTxtBox}"/>
 
         <Button x:Name="Exec_button" Content="start"
                 Style="{StaticResource MenuButtonStyle}"
                 Grid.Column="0" 
-                HorizontalAlignment="Center"
-                VerticalAlignment="Bottom"
-                Margin="0,0,0,100"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Margin="0,180,23,0"
                 Width="170" Height="70"
                 Command="{Binding ButtonCommand}"
-                CommandParameter="start"/>
+                CommandParameter="P"/>
+
+        <TextBlock Text="SHAPES :"
+                   Grid.Column="0"
+                   FontSize="13"
+                   Visibility="Visible"
+                   VerticalAlignment="Top"
+                   HorizontalAlignment="Left"
+                   Margin="10,270,0,0"
+                   Foreground="Black"
+                   Opacity="0.7"/>
+
+        <Button Content="Cirecle"
+                Style="{StaticResource MenuButtonStyle}"
+                Grid.Column="0" 
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                Margin="23,0,0,0"
+                Width="170" Height="70"
+                Command="{Binding ButtonCommand}"
+                CommandParameter="D"/>
+        <Button Content="Rect"
+                Style="{StaticResource MenuButtonStyle}"
+                Grid.Column="0" 
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                Margin="0,0,23,0"
+                Width="170" Height="70"
+                Command="{Binding ButtonCommand}"
+                CommandParameter="R"/>
+
+        <!--Load G code -->
+        <TextBlock Text="G-CODE :"
+                   Grid.Column="0"
+                   FontSize="13"
+                   Visibility="Visible"
+                   VerticalAlignment="Bottom"
+                   HorizontalAlignment="Left"
+                   Margin="10,0,0,260"
+                   Foreground="Black"
+                   Opacity="0.7"/>
+        <Line Stroke="Black" StrokeThickness="1"
+              HorizontalAlignment="Center"
+              VerticalAlignment="Bottom"
+              Grid.Column="0"
+              SnapsToDevicePixels="True"
+              Visibility="Visible"
+              X1="0" X2="400" Width="200"
+              Margin="0,0,0,270"
+              Opacity="0.7"
+              />
+        <Button Content="Load"
+                Style="{StaticResource MenuButtonStyle}"
+                Grid.Column="0" 
+                HorizontalAlignment="Left"
+                VerticalAlignment="Bottom"
+                Margin="23,0,0,180"
+                Width="170" Height="70"
+                Command="{Binding ButtonCommand}"
+                CommandParameter="G"/>
+        <Button Content="Executer"
+                Style="{StaticResource MenuButtonStyle}"
+                Grid.Column="0" 
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                Margin="0,0,23,180"
+                Width="170" Height="70"
+                Command="{Binding ButtonCommand}"
+                CommandParameter="E"/>
+        <!--Rectangle Grid.Column="0" Width="300" Height="50" 
+                   VerticalAlignment="Bottom"
+                   Margin="10,0,0,110"
+                   RadiusX="16"
+                   RadiusY="16"
+                   DataContext="{Binding path}">
+            <Rectangle.Stroke>
+                <LinearGradientBrush EndPoint="0,1" StartPoint="1,0">
+                    <GradientStop Color="#FFEEFF26" Offset="0.328"/>
+                    <GradientStop Color="#FF2C2C2C"/>
+                    <GradientStop Color="#FF595959" Offset="1"/>
+                </LinearGradientBrush>
+            </Rectangle.Stroke>
+        </Rectangle-->
+        <TextBlock Text="{Binding path}"
+                   Grid.Column="0"
+                   FontSize="16"
+                   Visibility="Visible"
+                   VerticalAlignment="Bottom"
+                   HorizontalAlignment="Center"
+                   Margin="10,0,0,110"
+                   Foreground="Black"
+                   Opacity="0.7"
+                   TextAlignment="Center"
+                   Height="50"
+                   FontFamily="Arial" FontStyle="Italic"
+                   >
+        </TextBlock>
 
         <!--Canvas x:Name="myCanvas" Cursor = "Cross"
                 DataContext="{Binding myCanvas, UpdateSourceTrigger=PropertyChanged , Mode=TwoWay}"
@@ -116,6 +242,8 @@
 
         </Canvas-->
 
+
+
         <ItemsControl ItemsSource="{Binding ShapeItems , Mode=TwoWay}" Grid.Column="1">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
@@ -136,7 +264,7 @@
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
-        
+
 
         <!--Path Data="{Binding geo}"
               Grid.Column="1"
