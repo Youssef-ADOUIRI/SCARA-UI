@@ -33,7 +33,7 @@ namespace SCARA_UI.MVVM.ViewModel
 
         public void test(object b)
         {
-            if (main.isConnected == true )
+            if (main.sp.IsOpen == true )
             {
                 if(b.ToString().ToUpper() == "A")
                 {

@@ -32,7 +32,6 @@ namespace SCARA_UI
 
         public SerialPort sp = new SerialPort();
         public string pn = "COM5";
-        public bool isConnected;
         public int RateBand = 9600;
 
         private void GridOfWindow_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -47,7 +46,7 @@ namespace SCARA_UI
             InitializeComponent();
         }
 
-        public void connect( string com  , int bR)
+        public void connect( string com, int bR)
         {
             // MessageBox.Show(com + " " +bR.ToString());
 
@@ -57,10 +56,16 @@ namespace SCARA_UI
                 pn = com;
                 String portName = pn;
                 sp.PortName = portName;
+                sp.ReadTimeout = 1000;
+                sp.WriteTimeout = 1000;
                 sp.BaudRate = RateBand;
+                sp.Parity = Parity.None;
                 sp.Open();
+                //sp.DataReceived += new SerialDataReceivedEventHandler(port_DataReceived);
+                buffer = string.Empty;
                 MessageBox.Show("Connected");
-                isConnected = true;
+                sp.WriteLine("I 1 1 1");
+                
             }
             catch (Exception)
             {
@@ -68,13 +73,13 @@ namespace SCARA_UI
             }
         }
 
+
         public void disconnect()
         {
             try
             {
                 sp.Close();
                 MessageBox.Show("Disconnected");
-                isConnected = false;
             }
             catch (Exception)
             {
@@ -89,13 +94,24 @@ namespace SCARA_UI
 
         public void writeIn(string cmd)
         {
-            //sp.Write(cmd);
-            MessageBox.Show(cmd);
-            //
-            //char[] go = new char[3];
-            //sp.Read(go, 0, 3);
+            sp.WriteLine(cmd);
         }
-        
+
+        public string buffer { get; set; }
+        public List<string> logs = new List<string>();
+
+        private void port_DataReceived(object sender, SerialDataReceivedEventArgs e)
+        {
+            buffer += sp.ReadExisting();
+            MessageBox.Show(buffer);
+            if (buffer.Contains("\r\n"))
+            {
+                //run code on data received from serial port
+                logs.Add(buffer);
+                MessageBox.Show(buffer);
+                buffer = string.Empty;
+            }
+        }
 
     }
 }
